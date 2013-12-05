@@ -12,7 +12,6 @@ class Player
  		# Player got all cards.
 		@hold_cards.clear()
 		# Player's point of this round.
-		#@point = 0
   end
 
   def change_status(status)
