@@ -11,25 +11,27 @@ player1_money = 100
 player1 = Player.new(player1_name, player1_money)
 dealer = Dealer.new()
 BJ = BlackJack.new()
+player_h = Hash.new
 puts "Hi~ #{player1.show_name}!"
 puts "The dealer name is #{dealer.show_name}!"
 #puts "Hi~ #{player1.show_name}! At the begining, your money is #{player1.show_money}."
 #puts "The dealer name is #{dealer.show_name}! His money is #{dealer.show_money}."
 
 choice = 1
-game_bust = false
 BJ.init_new(player1, dealer)
 
 while choice != 3
-	puts "Status: #{game_bust}"
-	if !game_bust 
-		choice = BJ.choice_action
+	puts "Status: #{player1.get_status}"
+	if player1.get_status == "BST"
+		choice = 2
 	else
-		#choice = 2
+		choice = BJ.choice_action
 	end
 	case 
 		when choice == 1
-  		game_bust = BJ.hit_action(player1, true)
+  		if BJ.hit_action(player1, true)
+  			player1.change_status("BST")
+  		end
   	when choice == 2
     	BJ.stay_action(player1)
     	# turn to dealer to do something
@@ -41,6 +43,7 @@ while choice != 3
     	puts "This round winner is #{BJ.winner(player_h)}."
     	player1.init()
     	dealer.init()
+    	puts "------------#{player_h}"
     	BJ.init_new(player1, dealer)
   	when choice == 3
     	BJ.exit_action(player1)

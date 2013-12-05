@@ -18,6 +18,10 @@ class Player
   def change_status(status)
   	@player_status = status
   end
+  # "RUN" => OK, "BST" => bust
+  def get_status
+    return @player_status
+  end
 
   def hit(card)
   	@hold_cards.push(card)

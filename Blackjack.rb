@@ -6,6 +6,7 @@ class BlackJack
 		@all_cards = []
 		shuffle_card
 		@max_point = 21
+		@player_bust = false
 	end
 
 	# shuffle the poker
@@ -16,6 +17,7 @@ class BlackJack
 	def init_new(player_obj1, player_obj2)
 		hit_action(player_obj1, true)
 		hit_action(player_obj2, false)
+		@player_bust = false
 	end
 
 	def deal
@@ -24,7 +26,7 @@ class BlackJack
 
 	def calculate_point(player_hold_cards)
 		points = player_hold_cards.collect {|card| @CARDS[card]}.reduce(:+)
-  	points -= 10 if player_hold_cards.include?("A") and points > 21
+  	points -= 10 if player_hold_cards.include?("A") and points > @max_point
   	return points
   end
 
@@ -46,10 +48,6 @@ class BlackJack
 		puts "#{player_obj.show_name}\'s point is #{show_player_point(player_obj)}."
 	end
 
-	def player_bet(player_obj)
-
-	end
-
 	def is_bust(points)
 		if points > @max_point 
 			return true
@@ -59,7 +57,7 @@ class BlackJack
 	end
 
 	def winner(player_hash)
-		#player_hash.delete_if {|key, value| value > 21 }
+		player_hash.delete_if {|key, value| value > @max_point }
 		return player_hash.max
 	end
 
