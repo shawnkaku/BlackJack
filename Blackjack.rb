@@ -80,7 +80,7 @@ class BlackJack
 	def exit_action(player_obj)
 		puts "Thanks for your join the game. Bye!"
 		exit
-	end 
+	end
 
 end
 
