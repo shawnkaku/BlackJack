@@ -2,8 +2,6 @@ require_relative 'BlackJack'
 require_relative 'Player'
 require_relative 'Dealer'
 
-
-
 puts "============= Strat the BlackJack Game ============="
 puts "Welcome to the BlackJack game. What's your name?"
 player1_name = gets.chomp
@@ -27,9 +25,7 @@ while choice != 3
   end
   case
     when choice == 1
-      if BJ.hit_action(player1, true)
-        player1.change_status("BST")
-      end
+      player1.change_status("BST") if BJ.hit_action(player1, true)
     when choice == 2
       BJ.stay_action(player1)
       # turn to dealer to do something
@@ -38,7 +34,7 @@ while choice != 3
       end
       # Compare which one is the winner in this round
       player_h = {player1.show_name => BJ.show_player_point(player1), dealer.show_name => BJ.show_player_point(dealer)}
-      puts "This round winner is #{BJ.winner(player_h)}."
+      puts "*** This round winner is <<<< #{BJ.winner(player_h)} >>>>. ***"
       player1.init()
       dealer.init()
       BJ.init_new(player1, dealer)

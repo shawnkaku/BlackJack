@@ -26,7 +26,7 @@ class BlackJack
 
   def calculate_point(player_hold_cards)
     points = player_hold_cards.collect {|card| @CARDS[card]}.reduce(:+)
-    points -= 10 if player_hold_cards.include?("A") and points > @max_point
+    points -= 10 if (player_hold_cards.include?("A") && points > @max_point)
     return points
   end
 
@@ -67,9 +67,7 @@ class BlackJack
 
   def hit_action(player_obj, is_show)
     player_obj.hit(deal)
-    if (is_show)
-      show_player_status(player_obj)
-    end
+    show_player_status(player_obj) if (is_show)
     return is_bust(show_player_point(player_obj))
   end
 
@@ -83,4 +81,3 @@ class BlackJack
   end
 
 end
-
